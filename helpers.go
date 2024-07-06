@@ -26,6 +26,7 @@ func CreateECDSA(ca *ECDSA, template x509.Certificate) (*Cert[*ecdsa.PrivateKey]
 		Certificate: cert,
 		PEM: block,
 		PrivateKey: pk,
+		Template: &template,
 	}
 
 	return &helperCert, nil
@@ -35,6 +36,7 @@ type Cert[PRIV  crypto.Signer] struct {
 	Certificate *x509.Certificate
 	PEM *pem.Block
 	PrivateKey PRIV
+	Template *x509.Certificate
 }
 
 type RootCertProvider interface {
