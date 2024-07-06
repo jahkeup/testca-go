@@ -252,11 +252,9 @@ func (t *TestCA[PUB, PRIV]) CreateCertificate(template *x509.Certificate, pub cr
 		template.SerialNumber = t.IncrementedSerial()
 	}
 
-	if template.Issuer.String() == (pkix.Name{}).String() {
-		if rootTemplate := t.RootTemplate; rootTemplate != nil {
-			// configure issuer from root
-			template.Issuer = rootTemplate.Issuer
-		}
+	if root := t.rootCertificate; root != nil {
+		// configure issuer from (potentially relative) root
+		template.Issuer = root.Subject
 	}
 
 	if template.NotBefore.IsZero() {
