@@ -21,7 +21,7 @@ func TestNewECDSA(t *testing.T) {
 	pemBlock, cert, err := ca.CreateCertificate(&x509.Certificate{
 		KeyUsage:    x509.KeyUsageDigitalSignature,
 		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
-		DNSNames: []string{"other.testca.test", "new-ecdsa.testca.test"},
+		DNSNames:    []string{"other.testca.test", "new-ecdsa.testca.test"},
 	}, &pk.PublicKey)
 
 	if err != nil {
@@ -33,10 +33,10 @@ func TestNewECDSA(t *testing.T) {
 	}
 
 	chains, err := cert.Verify(x509.VerifyOptions{
-		DNSName:                   "new-ecdsa.testca.test",
-		Roots:                     testca.SharedPool(),
-		CurrentTime:               time.Now(),
-		KeyUsages:                 []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
+		DNSName:     "new-ecdsa.testca.test",
+		Roots:       testca.SharedPool(),
+		CurrentTime: time.Now(),
+		KeyUsages:   []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
 	})
 
 	if err != nil {

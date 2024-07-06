@@ -85,7 +85,7 @@ func DefaultRootTemplate() *x509.Certificate {
 // SetDefaultRootTemplate configures the given certificate to use as the root CA
 // template.
 func SetDefaultRootTemplate(cert x509.Certificate) {
-	if cert.IsCA != true {
+	if !cert.IsCA {
 		panic("IsCA must be configured")
 	}
 

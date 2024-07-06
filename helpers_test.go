@@ -17,7 +17,7 @@ func TestECDSACertificate(t *testing.T) {
 	cert, err := testca.CreateECDSA(ca, x509.Certificate{
 		KeyUsage:    x509.KeyUsageDigitalSignature,
 		ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageServerAuth},
-		DNSNames: []string{"other.testca.test", "ecdsa-cert.testca.test"},
+		DNSNames:    []string{"other.testca.test", "ecdsa-cert.testca.test"},
 	})
 
 	if err != nil {
@@ -29,9 +29,9 @@ func TestECDSACertificate(t *testing.T) {
 	}
 
 	_, err = cert.Certificate.Verify(x509.VerifyOptions{
-		DNSName:                   "ecdsa-cert.testca.test",
-		Roots:                     testca.NewCertPool(ca),
-		CurrentTime:               time.Now(),
+		DNSName:     "ecdsa-cert.testca.test",
+		Roots:       testca.NewCertPool(ca),
+		CurrentTime: time.Now(),
 	})
 
 	if err != nil {
